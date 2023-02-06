@@ -45,6 +45,12 @@ int main(int argc, char* argv[]){
                         .reserved = RESERVED,
                         .height = height };
   printf("CIF version %d detected (magic is 0x%x)\n", version, _hdr.magic);
+
+  if(version == -4){
+    printf("Invalid version (%d) given!\n", version);
+    return 257;
+  }
+
   printf("Dimensions of CIF file: %d by %d (width by height)\n", _hdr.width, _hdr.height);
 
   // now lets display pixels
