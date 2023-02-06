@@ -18,5 +18,6 @@ clean:
 	rm -rf obj/ bin/
 
 check:
-	printf '\xdb\xfe\x01\x20\x01\xff\x00\x00\xff\xff\xff\xff' > bin/f.cif
+	rm bin/f.cif || true
+	@curl -L -o bin/f.cif https://raw.githubusercontent.com/cif-format/cif/master/examples/1x1-red.cif
 	./bin/cif_parse bin/f.cif
