@@ -16,3 +16,7 @@ cif_parser:
 
 clean:
 	rm -rf obj/ bin/
+
+check:
+	printf '\xdb\xfe\x01\x20\x01\xff\x00\x00\xff\xff\xff\xff' > bin/f.cif
+	./bin/cif_parse bin/f.cif
