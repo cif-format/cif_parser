@@ -64,7 +64,24 @@ int main(int argc, char* argv[]){
     if(m != 0x59) return 0; // exit
   #endif
   
-  for(int k = 5; k < (sizeof(buffer)/sizeof(buffer[0])); k++){
-    // TODO
+  int ct_pixel = 1;
+  for(long unsigned int k = 5; k < (sizeof(buffer)/sizeof(buffer[0]));
+      k++ /* maybe*/){
+    if(buffer[k+3] == 0x20){ // reserved or space
+      if(ct_pixel > (_hdr.width * _hdr.height)){
+        printf("Too many pixels! (got %d, want %d)\n",
+                ct_pixel, (_hdr.width * _hdr.height));
+        return 2;
+      }
+      cif_pixel_t pix = { .r = buffer[k],
+                          .g = buffer[k+1],
+                          .b = buffer[k+2] };
+      printf("Pixel (#%d) Data:\n\tR: %d\n\tG: %d\n\tB: %d\n\n",
+              ct_pixel, pix.r, pix.g, pix.b);
+      
+      // increment pixel count
+      ct_pixel++; 
+    }
   }
+  return 0;
 }
